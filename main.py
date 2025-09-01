@@ -31,7 +31,7 @@ receitas=[
     },
     {
         'Nome':'Humburger',
-        'Ingredientes':['1 kg de patinho moído','1 envelope de MAGGI® Creme de Cebola','1 pitada de sal','2 colheres (sopa) de páprica defumada,','50 g de bacon,','1 cebola roxa','1 tomate','1 pitada de sal','1 colher (chá) de orégano','1 colher (sopa) de cheiro-verde','100 g de queijo muçarela','6 pães de hambúrguer'],
+        'ingredientes':['1 kg de patinho moído','1 envelope de MAGGI® Creme de Cebola','1 pitada de sal','2 colheres (sopa) de páprica defumada,','50 g de bacon,','1 cebola roxa','1 tomate','1 pitada de sal','1 colher (chá) de orégano','1 colher (sopa) de cheiro-verde','100 g de queijo muçarela','6 pães de hambúrguer'],
         'Utensílios':['Tigela','Frigideira'],
         'Modo de Preparo':'1.Em um recipiente, coloque o patinho moído, adicione o MAGGI Creme de Cebola, o sal e a páprica defumada. Mexa bem para incorporar tudo e molde os hambúrgueres. Reserve. 2.Em uma frigideira, frite o bacon, e em seguida, coloque a cebola já picada. Quando a cebola estiver murcha, coloque o tomate (reserve 2 fatias para a montagem), o sal, o orégano, e continue fritando tudo. Reserve. 3.Na mesma frigideira, frite os hambúrgueres, ao seu ponto favorito, e monte os lanches. Abra o pão, coloque a salada, a carne, o bacon, o queijo, o cheiro verde e o tomate.'
     },
@@ -46,4 +46,6 @@ def hello():
     return{"title": "Livro de Receitas"}
 @app.get("/receitas/{receita}")
 def get_receita(receita: str):
-    return{}
+    for i in receitas:
+        if i['Nome']==receita:
+            return{i['ingredientes']}
