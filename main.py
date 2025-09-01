@@ -4,10 +4,13 @@ from typing import List
 
 app=FastAPI(title="Api do Felps")
 
-class Receita(BaseModel):
+class ReceitaBase(BaseModel):
     nome: str
     ingredientes: List[str]
     modo_de_preparo: str
+    
+class Receita(ReceitaBase):
+    
 
 receitas: List[Receita]=[]
 
@@ -27,7 +30,6 @@ def criar_receita(dados: Receita):
     nova_receita=dados
     receitas.append(nova_receita)
     return nova_receita
-class ReceitaBase(BaseModel):
-    ''
-class Receita(ReceitaBase):
-    ''
+
+
+    
