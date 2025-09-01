@@ -24,19 +24,19 @@ receitas=[
         'Modo de Preparo':'1.Em uma panela, coloque o Leite MOÇA com o Chocolate em Pó CHOCOLATERIA e a manteiga. 2.Misture bem e leve ao fogo baixo, mexendo sempre até desprender do fundo da panela (cerca de 10 minutos). 3.Retire do fogo, passe para um prato untado com manteiga e deixe esfriar. 4.Com as mãos untadas, enrole em bolinhas e passe-as no granulado. Sirva em forminhas de papel.',
     },
     {
-        'Nome':'Lasanha Quatro Queijos',
+        'nome':'Lasanha Quatro Queijos',
         'ingredientes':['Molho Branco:','2 colheres (sopa) de manteiga','1 colher (sopa) de farinha de trigo','500 ml de Leite Líquido NINHO® Forti+ Integral','1 copo de Requeijão NESTLÉ® Tradicional','Sal a gosto','Pimenta do reino preta a gosto','1 pitada de noz-noscada','200ml de Creme De Leite NESTLÉ® (lata ou caixinha)','Montagem:','500 g de massa fresca de lasanha','250 g de queijo muçarela','250 g de provolone','250 g de queijo parmesão','250 g de queijo prato','1 pitada de orégano'],
         'utensílios':['Refratario','Frigideira','Tigela','Colher','Batedor'],
         'Modo de Receita':'Molho Branco:1. Em uma panela, derreta a manteiga ou margarina em fogo médio. 2.Adicione a farinha de trigo à manteiga derretida e mexa bem até formar uma mistura homogênea. 3.Em seguida, adicione o Leite Líquido NINHO Fort+ Integral à mistura, mexendo constantemente até que o molho engrosse e fique com uma textura cremosa. 4.Adicione o Requeijão NESTLÉ Tradicional e continue mexendo até incorporar completamente. 5.Tempere o molho com sal, pimenta-do-reino e a pitada de noz-moscada ralada a gosto. 6.Por fim, acrescente o Creme de Leite NESTLÉ e mexa até que o molho esteja bem misturado e reserve. Montagem: 7.Em uma forma refratária, coloque uma camada fina de molho branco no fundo da forma. 8.Em seguida, faça uma camada de massa de lasanha fresca sobre o molho branco. 9.Cubra a massa com uma porção dos queijos ralados (muçarela, provolone, parmesão e prato) temperados com o orégano, espalhando-os uniformemente. 10.Repita as camadas, alternando entre molho branco, massa de lasanha e queijos ralados, deixando a última camada de molho branco e queijos. 11.Leve ao forno pré-aquecido a 180º por cerca de 30-40 minutos. 12.Retire a lasanha do forno e deixe descansar por alguns minutos antes de servir. Corte em porções e sirva quente'
     },
     {
-        'Nome':'Humburger',
+        'nome':'Humburger',
         'ingredientes':['1 kg de patinho moído','1 envelope de MAGGI® Creme de Cebola','1 pitada de sal','2 colheres (sopa) de páprica defumada,','50 g de bacon,','1 cebola roxa','1 tomate','1 pitada de sal','1 colher (chá) de orégano','1 colher (sopa) de cheiro-verde','100 g de queijo muçarela','6 pães de hambúrguer'],
         'Utensílios':['Tigela','Frigideira'],
         'Modo de Preparo':'1.Em um recipiente, coloque o patinho moído, adicione o MAGGI Creme de Cebola, o sal e a páprica defumada. Mexa bem para incorporar tudo e molde os hambúrgueres. Reserve. 2.Em uma frigideira, frite o bacon, e em seguida, coloque a cebola já picada. Quando a cebola estiver murcha, coloque o tomate (reserve 2 fatias para a montagem), o sal, o orégano, e continue fritando tudo. Reserve. 3.Na mesma frigideira, frite os hambúrgueres, ao seu ponto favorito, e monte os lanches. Abra o pão, coloque a salada, a carne, o bacon, o queijo, o cheiro verde e o tomate.'
     },
     {
-        'Nome':'Torta de calabresa',
+        'nome':'Torta de calabresa',
         'ingredientes':['200 g de linguiça calabresa defumada picada','1 cebola média picada','1 tomate médio picado, sem sementes','1 colher (sopa) de cheiro-verde picado','1 pitada de pimenta-do-reino','3 ovos','1 xícara (chá) de Leite Líquido NINHO® Forti+ Integral','meia xícara (chá) de óleo','1 xícara (chá) e meia de farinha de trigo','1 colher (sopa) de amido de milho','1 colher (chá) de sal','1 colher (sopa) de fermento em pó','1 xícara (chá) de queijo muçarela ralado'],
         'utensílios':['Frigideira','Forno','Peneira','Colher de pau','Frigideira','Liquidificador','Bowl','Panela de molho','Molde retangular','Panqueca'],
         'modo de preparo':'Recheio 1.Em uma panela, leve a calabresa ao fogo médio até começar a dourar. Acrescente a cebola e refogue por mais 3 minutos. Adicione o tomate, o cheiro-verde, a pimenta-do-reino e misture bem. Desligue o fogo e deixe esfriar. Massa 2.Em um liquidificador, bata os ovos, o Leite Líquido NINHO Forti+ Integral e o óleo até ficar homogêneo. Em um recipiente, peneire a farinha de trigo com o amido de milho e o sal. Junte aos poucos a mistura do liquidificador, mexendo até formar uma massa lisa. Adicione o fermento e misture delicadamente. Montagem 3.Em uma forma retangular (30 x 20 cm), untada com óleo e polvilhada com farinha de trigo, despeje metade da massa. Distribua o recheio por cima e cubra com o restante da massa. Finalize com a muçarela ralada. 4.Leve ao forno preaquecido a 180°C por cerca de 35 minutos, ou até dourar e firmar ao toque. Deixe amornar antes de cortar.'
@@ -50,5 +50,5 @@ def hello():
 @app.get("/receitas/{receita}")
 def get_receita(receita: str):
     for i in receitas:
-        if i['Nome']==receita:
+        if i['nome']==receita:
             return{i['ingredientes']}
