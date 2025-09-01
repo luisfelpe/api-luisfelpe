@@ -51,4 +51,4 @@ def hello():
 def get_receita(receita: str):
     for i in receitas:
         if i['nome']==receita:
-            return{i['ingredientes']}
+            return i['ingredientes']
