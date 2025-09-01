@@ -27,3 +27,7 @@ def criar_receita(dados: Receita):
     nova_receita=dados
     receitas.append(nova_receita)
     return nova_receita
+class ReceitaBase(BaseModel):
+    ''
+class Receita(ReceitaBase):
+    ''
