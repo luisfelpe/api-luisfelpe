@@ -4,7 +4,7 @@ receitas=[
     {
         'nome':'Bolo de Morango',
 
-        'ingredietes':['1 xícara (chá) de água','1 xícara (chá) de Nesquick®','4 colheres (sopa) de manteiga','3 ovos','1 e 1/2 xícaras (chá) de açúcar',
+        'ingredientes':['1 xícara (chá) de água','1 xícara (chá) de Nesquick®','4 colheres (sopa) de manteiga','3 ovos','1 e 1/2 xícaras (chá) de açúcar',
                        '3 xícaras (chá) de farinha de trigo','1 colher (sopa) de fermento em pó químico','Manteiga e farinha de trigo para untar',
                        '10 morangos cortados ao meio para decorar','1 caixa de morangos picados (300g)','1 xícara (chá) de açúcar','Suco de 1 limão'],
         'utensílios':['Tigela','Forma','Panela','colher','Liquidificador'],
@@ -39,7 +39,7 @@ receitas=[
         'nome':'Torta de calabresa',
         'ingredientes':['200 g de linguiça calabresa defumada picada','1 cebola média picada','1 tomate médio picado, sem sementes','1 colher (sopa) de cheiro-verde picado','1 pitada de pimenta-do-reino','3 ovos','1 xícara (chá) de Leite Líquido NINHO® Forti+ Integral','meia xícara (chá) de óleo','1 xícara (chá) e meia de farinha de trigo','1 colher (sopa) de amido de milho','1 colher (chá) de sal','1 colher (sopa) de fermento em pó','1 xícara (chá) de queijo muçarela ralado'],
         'utensílios':['Frigideira','Forno','Peneira','Colher de pau','Frigideira','Liquidificador','Bowl','Panela de molho','Molde retangular','Panqueca'],
-        'modo de preparo':'Recheio 1.Em uma panela, leve a calabresa ao fogo médio até começar a dourar. Acrescente a cebola e refogue por mais 3 minutos. Adicione o tomate, o cheiro-verde, a pimenta-do-reino e misture bem. Desligue o fogo e deixe esfriar. Massa 2.Em um liquidificador, bata os ovos, o Leite Líquido NINHO Forti+ Integral e o óleo até ficar homogêneo. Em um recipiente, peneire a farinha de trigo com o amido de milho e o sal. Junte aos poucos a mistura do liquidificador, mexendo até formar uma massa lisa. Adicione o fermento e misture delicadamente. Montagem 3.Em uma forma retangular (30 x 20 cm), untada com óleo e polvilhada com farinha de trigo, despeje metade da massa. Distribua o recheio por cima e cubra com o restante da massa. Finalize com a muçarela ralada. 4.Leve ao forno preaquecido a 180°C por cerca de 35 minutos, ou até dourar e firmar ao toque. Deixe amornar antes de cortar.'
+        'Modo de preparo':'Recheio 1.Em uma panela, leve a calabresa ao fogo médio até começar a dourar. Acrescente a cebola e refogue por mais 3 minutos. Adicione o tomate, o cheiro-verde, a pimenta-do-reino e misture bem. Desligue o fogo e deixe esfriar. Massa 2.Em um liquidificador, bata os ovos, o Leite Líquido NINHO Forti+ Integral e o óleo até ficar homogêneo. Em um recipiente, peneire a farinha de trigo com o amido de milho e o sal. Junte aos poucos a mistura do liquidificador, mexendo até formar uma massa lisa. Adicione o fermento e misture delicadamente. Montagem 3.Em uma forma retangular (30 x 20 cm), untada com óleo e polvilhada com farinha de trigo, despeje metade da massa. Distribua o recheio por cima e cubra com o restante da massa. Finalize com a muçarela ralada. 4.Leve ao forno preaquecido a 180°C por cerca de 35 minutos, ou até dourar e firmar ao toque. Deixe amornar antes de cortar.'
     }
 
 ]
