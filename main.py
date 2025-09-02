@@ -21,7 +21,7 @@ def get_todas_receitas():
 @app.get("/receitas/{receita}")
 def get_receita(receita: str):
     for i in receitas:
-        if i['nome']==receita:
+        if i["nome"]==receita:
             return i['ingredientes']
         
         
@@ -29,7 +29,7 @@ def get_receita(receita: str):
 def criar_receita(dados: Receita):
     nova_receita=dados
     for i in receitas:
-        if receitas['nome']==nova_receita['nome']:
+        if receitas['nome'].upper()==nova_receita['nome'].upper():
             return("Receita já criada")
         else:
             receitas.append(nova_receita)
