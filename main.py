@@ -4,11 +4,15 @@ from typing import List
 
 app=FastAPI(title="Api do Felps")
 
-class Receita(BaseModel):
+class CreateReceita(BaseModel):
     nome: str
     ingredientes: List[str]
     modo_de_preparo: str
-      
+class Receita(BaseModel):
+    id: int
+    nome: str
+    ingredientes: List[str]
+    modo_de_preparo: str      
 
 receitas: List[Receita]=[]
 
@@ -22,19 +26,25 @@ def get_todas_receitas():
 def get_receita(receita: str):
     for i in receitas:
         if i.nome==receita:
-            return i.ingredientes
+            return i
     return{"Receita não encontrada"}
-        
-        
+                
 @app.post("/receitas")
-def criar_receita(dados: Receita):
-    nova_receita=dados
+def criar_receita(dados: CreateReceita):
+    id=len(receitas)+1
+    nova_receita=Receita(id=id,nome=dados.nome,ingredientes=dados.ingredientes,modo_de_preparo=dados.modo_de_preparo)
     for i in receitas:
         if i.nome.upper()==nova_receita.nome.upper():
             return("Receita já criada")
-        
+          
     receitas.append(nova_receita)
     return nova_receita        
+@app.get("/receitas/id/{id}")
+def get_receita_por_id(id: int):
+    for i in receitas:
+        if i.id==id:
+            return i
+    return{"Receita não encontrada"}
 
 
     
