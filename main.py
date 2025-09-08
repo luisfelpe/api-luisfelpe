@@ -27,7 +27,7 @@ def get_receita(receita: str):
     for i in receitas:
         if i.nome==receita:
             return i
-    return{"Receita não encontrada"}
+    return{"mensagem: Receita não encontrada"}
                 
 @app.post("/receitas")
 def criar_receita(dados: CreateReceita):
@@ -35,7 +35,7 @@ def criar_receita(dados: CreateReceita):
     nova_receita=Receita(id=id,nome=dados.nome,ingredientes=dados.ingredientes,modo_de_preparo=dados.modo_de_preparo)
     for i in receitas:
         if i.nome.upper()==nova_receita.nome.upper():
-            return("Receita já criada")
+            return("mensagem: Receita já criada")
           
     receitas.append(nova_receita)
     return nova_receita        
@@ -44,7 +44,7 @@ def get_receita_por_id(id: int):
     for i in receitas:
         if i.id==id:
             return i
-    return{"Receita não encontrada"}
+    return{"mensagem: Receita não encontrada"}
 
 @app.put("/receitas{id}")
 def uptade_receita(id: int, dados: CreateReceita):
@@ -56,5 +56,11 @@ def uptade_receita(id: int, dados: CreateReceita):
                 ingredientes=dados.ingredientes,
                 modo_de_preparo=dados.modo_de_preparo,
             )
+            for j in range(len(receitas)):
+                if receitas[j].nome==receita_atualizada.nome:
+                    return{"mensagem: Já existe uma receita com esse nome"}
+            if receita_atualizada.nome=="":
+                return{"mensagem: insira um nome"}
             receitas[i]=receita_atualizada
             return receita_atualizada
+    return{"mensagem: Receita não encontrada"}
