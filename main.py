@@ -20,9 +20,9 @@ def get_todas_receitas():
     return receitas
 @app.get("/receitas/{receita}")
 def get_receita(receita: str):
-    for receita in receitas:
-        if receita.nome==receita:
-            return receita.ingredientes
+    for i in receitas:
+        if i.nome==receita:
+            return i.ingredientes
     return{"Receita não encontrada"}
         
         
