@@ -36,7 +36,8 @@ def criar_receita(dados: CreateReceita):
     for i in receitas:
         if i.nome.upper()==nova_receita.nome.upper():
             return("mensagem: Receita já criada")
-          
+    if 2>len(nova_receita.nome)>50:
+        return{"mensagem: Fora do Limite"}      
     receitas.append(nova_receita)
     return nova_receita        
 @app.get("/receitas/id/{id}")
@@ -57,10 +58,12 @@ def uptade_receita(id: int, dados: CreateReceita):
                 modo_de_preparo=dados.modo_de_preparo,
             )
             for j in range(len(receitas)):
-                if receitas[j].nome==receita_atualizada.nome:
+                if receitas[j].nome.upper()==receita_atualizada.nome.upper():
                     return{"mensagem: Já existe uma receita com esse nome"}
             if receita_atualizada.nome=="":
                 return{"mensagem: insira um nome"}
+            if 2>len(receita_atualizada.nome)>50:
+                return{"mensagem: Fora do Limite"}
             receitas[i]=receita_atualizada
             return receita_atualizada
     return{"mensagem: Receita não encontrada"}
