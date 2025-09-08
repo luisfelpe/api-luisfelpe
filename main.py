@@ -26,15 +26,15 @@ def get_receita(receita: str):
     return{"Receita não encontrada"}
         
         
-@app.post("/receitas", response_model=Receita, status_code=201)
+@app.post("/receitas")
 def criar_receita(dados: Receita):
     nova_receita=dados
     for i in receitas:
-        if receitas.nome.upper()==nova_receita.nome.upper():
+        if i.nome.upper()==nova_receita.nome.upper():
             return("Receita já criada")
-        else:
-            receitas.append(nova_receita)
-            return nova_receita
+        
+    receitas.append(nova_receita)
+    return nova_receita        
 
 
     
