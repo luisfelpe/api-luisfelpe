@@ -62,8 +62,6 @@ def uptade_receita(id: int, dados: CreateReceita):
                     return{"mensagem: Já existe uma receita com esse nome"}
             if receita_atualizada.nome=="":
                 return{"mensagem: insira um nome"}
-            if 2>len(receita_atualizada.nome)>50:
-                return{"mensagem: Fora do Limite"}
             receitas[i]=receita_atualizada
             return receita_atualizada
     return{"mensagem: Receita não encontrada"}
