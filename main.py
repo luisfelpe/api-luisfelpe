@@ -27,7 +27,7 @@ def get_receita(receita: str):
     for i in receitas:
         if i.nome==receita:
             return i
-    return{"mensagem: Receita não encontrada"}
+    return{"mensagem": "Receita não encontrada"}
                 
 @app.post("/receitas")
 def criar_receita(dados: CreateReceita):
@@ -37,7 +37,7 @@ def criar_receita(dados: CreateReceita):
         if i.nome.upper()==nova_receita.nome.upper():
             return("mensagem: Receita já criada")
     if 2>len(nova_receita.nome)>50:
-        return{"mensagem: Fora do Limite"}      
+        return{"mensagem": "Fora do Limite"}      
     receitas.append(nova_receita)
     return nova_receita        
 @app.get("/receitas/id/{id}")
@@ -45,7 +45,7 @@ def get_receita_por_id(id: int):
     for i in receitas:
         if i.id==id:
             return i
-    return{"mensagem: Receita não encontrada"}
+    return{"mensagem": "Receita não encontrada"}
 
 @app.put("/receitas{id}")
 def uptade_receita(id: int, dados: CreateReceita):
@@ -61,7 +61,17 @@ def uptade_receita(id: int, dados: CreateReceita):
                 if receitas[j].nome.upper()==receita_atualizada.nome.upper():
                     return{"mensagem: Já existe uma receita com esse nome"}
             if receita_atualizada.nome=="":
-                return{"mensagem: insira um nome"}
+                return{"mensagem": "insira um nome"}
             receitas[i]=receita_atualizada
             return receita_atualizada
     return{"mensagem: Receita não encontrada"}
+@app.delete("/receitas/{id}")
+def deletar_receia(id: int):
+    if len(receitas)==0:
+        return{"mensagem":"Não há receitas"}
+    for i in range(len(receitas)):
+        if receitas[i].id==id:
+            m=(receitas[i].nome)
+            receitas.pop(i)
+            return {"mensagem": "Receita Deletada:"+m}
+    return {"mensagem": "Receita não encontrada"}
