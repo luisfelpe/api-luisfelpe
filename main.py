@@ -21,6 +21,8 @@ def hello():
     return{"title": "Livro de Receitas"}
 @app.get("/receitas")
 def get_todas_receitas():
+    if len(receitas)==0:
+        return{"mensagem":"Sobrou Nada Pro Betinha"}
     return receitas
 @app.get("/receitas/{receita}")
 def get_receita(receita: str):
@@ -73,5 +75,5 @@ def deletar_receia(id: int):
         if receitas[i].id==id:
             m=(receitas[i].nome)
             receitas.pop(i)
-            return {"mensagem": "Receita Deletada:"+m}
+            return {"mensagem": "A Receita "+m+" Foi Deletada:"}
     return {"mensagem": "Receita não encontrada"}
