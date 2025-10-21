@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from typing import List
 from http import HTTPStatus
-from .schema import CreateReceita,Receita
+from schema import CreateReceita, Receita
 
 app = FastAPI(title="Api do Felps")
 
@@ -26,7 +26,7 @@ def get_receita(receita: str):
     for i in receitas:
         if i.nome == receita:
             return i
-    raise HTTPException(status_code=HTTPException.NOT_FOUND, detail="Receita não encontrada")
+    raise HTTPException(status_code=HTTPException.Not_Found, detail="Receita não encontrada")
 
 
 @app.post("/receitas", response_model=List[Receita], status_code=HTTPStatus.CREATED)
@@ -83,5 +83,5 @@ def deletar_receia(id: int):
         if receitas[i].id == id:
             m = receitas[i].nome
             receitas.pop(i)
-            return {"mensagem": "A Receita " + m + " Foi Deletada:"}
+            return m
     raise HTTPException(status_code=HTTPException.NOT_FOUND, detail="Receita não encontrada")
