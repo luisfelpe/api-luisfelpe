@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from typing import List
 from http import HTTPStatus
-from schema import CreateReceita, Receita
+from .inportmaligno import CreateReceita, Receita, Usuario, BaseUsuario, UsuarioPublic
 
 app = FastAPI(title="Api do Felps")
 
@@ -17,7 +17,7 @@ def hello():
 @app.get("/receitas", response_model=List[Receita], status_code=HTTPStatus.OK)
 def get_todas_receitas():
     if len(receitas) == 0:
-        raise HTTPException(status_code=HTTPException.NOT_FOUND, detail="Sobrou Nada Pro Betinha")
+        raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Sobrou Nada Pro Betinha")
     return receitas
 
 
@@ -26,7 +26,7 @@ def get_receita(receita: str):
     for i in receitas:
         if i.nome == receita:
             return i
-    raise HTTPException(status_code=HTTPException.Not_Found, detail="Receita não encontrada")
+    raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Receita não encontrada")
 
 
 @app.post("/receitas", response_model=List[Receita], status_code=HTTPStatus.CREATED)
@@ -40,9 +40,9 @@ def criar_receita(dados: CreateReceita):
     )
     for i in receitas:
         if i.nome.upper() == nova_receita.nome.upper():
-            raise HTTPException(status_code=HTTPException.BAD_REQUEST, detail="Receita já criada")
+            raise HTTPException(status_code=HTTPStatus.BAD_REQUEST, detail="Receita já criada")
     if 2 > len(nova_receita.nome) > 50:
-        raise HTTPException(status_code=HTTPException.BAD_REQUEST, detail="Fora do Limite")
+        raise HTTPException(status_code=HTTPStatus.BAD_REQUEST, detail="Fora do Limite")
     receitas.append(nova_receita)
     return nova_receita
 
@@ -52,7 +52,7 @@ def get_receita_por_id(id: int):
     for i in receitas:
         if i.id == id:
             return i
-    raise HTTPException(status_code=HTTPException.NOT_FOUND, detail="Receita não encontrada")
+    raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Receita não encontrada")
 
 
 @app.put("/receitas/{id}", response_model=List[Receita], status_code=HTTPStatus.OK)
@@ -67,21 +67,21 @@ def uptade_receita(id: int, dados: CreateReceita):
             )
             for j in range(len(receitas)):
                 if receitas[j].nome.upper() == receita_atualizada.nome.upper():
-                    raise HTTPException(status_code=HTTPException.CONFLICT, detail="Já existe uma receita com esse nome")
+                    raise HTTPException(status_code=HTTPStatus.CONFLICT, detail="Já existe uma receita com esse nome")
             if receita_atualizada.nome == "":
-                raise HTTPException(status_code=HTTPException.BAD_REQUEST, detail="insira um nome")
+                raise HTTPException(status_code=HTTPStatus.BAD_REQUEST, detail="insira um nome")
             receitas[i] = receita_atualizada
             return receita_atualizada
-    raise HTTPException(status_code=HTTPException.NOT_FOUND, detail="Receita não encontrada")
+    raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Receita não encontrada")
 
 
 @app.delete("/receitas/{id}", response_model=List[Receita], status_code=HTTPStatus.OK)
 def deletar_receia(id: int):
     if len(receitas) == 0:
-        raise HTTPException(status_code=HTTPException.NOT_FOUND, detail="Não há Receitas")
+        raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Não há Receitas")
     for i in range(len(receitas)):
         if receitas[i].id == id:
             m = receitas[i].nome
             receitas.pop(i)
             return m
-    raise HTTPException(status_code=HTTPException.NOT_FOUND, detail="Receita não encontrada")
+    raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Receita não encontrada")
