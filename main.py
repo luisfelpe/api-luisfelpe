@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from typing import List
 from http import HTTPStatus
-from .inportmaligno import CreateReceita, Receita, Usuario, BaseUsuario, UsuarioPublic
+from importmaligno import CreateReceita, Receita, Usuario, BaseUsuario, UsuarioPublic
 
 app = FastAPI(title="Api do Felps")
 
