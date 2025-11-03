@@ -113,3 +113,10 @@ def get_usuarios_por_nome(nome_usuario: str):
         if i.nome_usuario == nome_usuario:
             return i
     raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="usuario não encontrado")
+
+@app.get("/usuarios/id/{id}", response_model=UsuarioPublic, status_code=HTTPStatus.OK)
+def get_usuario_por_id(id: int):
+    for i in usuarios:
+        if i.id == id:
+            return i
+    raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Usuario não encontrado")
