@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from typing import List
 from http import HTTPStatus
-from importmaligno import CreateReceita, Receita, Usuario, BaseUsuario, UsuarioPublic
+from importmaligno import CreateReceita, Receita, Usuario, BaseUsuario, UsuarioPublic, validar_senha
 
 app = FastAPI(title="Api do Felps")
 
@@ -20,7 +20,6 @@ def get_todas_receitas():
     if len(receitas) == 0:
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Sobrou Nada Pro Betinha")
     return receitas
-
 
 @app.get("/receitas/{receita}", response_model=Receita, status_code=HTTPStatus.OK)
 def get_receita(receita: str):
@@ -82,7 +81,7 @@ def deletar_receia(id: int):
         raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Não há Receitas")
     for i in range(len(receitas)):
         if receitas[i].id == id:
-            m = receitas[i].nome
+            m = receitas[i]
             receitas.pop(i)
             return m
     raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Receita não encontrada")
@@ -98,7 +97,11 @@ def create_usuario(dados: BaseUsuario):
     )
     for i in usuarios:
         if i.email.upper==novo_usuario.email.upper:
-            raise HTTPException(status_code=HTTPStatus.CONFLICT, detail="Já existe um Usuario com esse Email")
+            raise HTTPException(status_code=HTTPStatus.CONFLICT, detail="Já existe um Betinha com esse Email")
+    
+    if validar_senha(novo_usuario.senha)==False:
+       raise HTTPException(status_code=HTTPStatus.BAD_REQUEST, detail="a senha deve ter numeros e caracteres")
+    
     usuarios.append(novo_usuario)
     return novo_usuario
 @app.get("/usuarios", status_code=HTTPStatus.OK, response_model=List[UsuarioPublic])
@@ -112,11 +115,44 @@ def get_usuarios_por_nome(nome_usuario: str):
     for i in usuarios:
         if i.nome_usuario == nome_usuario:
             return i
-    raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="usuario não encontrado")
+    raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Betinha não encontrado")
 
 @app.get("/usuarios/id/{id}", response_model=UsuarioPublic, status_code=HTTPStatus.OK)
 def get_usuario_por_id(id: int):
     for i in usuarios:
         if i.id == id:
             return i
-    raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Usuario não encontrado")
+    raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Betinha não encontrado")
+
+@app.put("/usuarios/{id}", response_model=UsuarioPublic, status_code=HTTPStatus.OK)
+def uptade_usuario(id: int, dados: BaseUsuario):
+    for i in range(len(usuarios)):
+        if usuarios[i].id == id:
+            usuario_atualizado = Usuario(
+                id=id,
+                nome_usuario=dados.nome_usuario,
+                email=dados.email,
+                senha=dados.senha,
+                )
+            for j in range(len(usuarios)):
+                if usuarios[j].nome_usuario.upper() == usuario_atualizado.nome_usuario.upper():
+                    raise HTTPException(status_code=HTTPStatus.CONFLICT, detail="Já existe um Betinha com esse nome")
+            if usuario_atualizado.nome_usuario == "":
+                raise HTTPException(status_code=HTTPStatus.BAD_REQUEST, detail="insira um nome")
+            if validar_senha(usuario_atualizado.senha)==False:
+                    raise HTTPException(status_code=HTTPStatus.BAD_REQUEST, detail="a senha deve ter numeros e caracteres")
+            
+            usuarios[i] = usuario_atualizado
+            return usuario_atualizado
+    raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Betinha não encontrado")
+
+@app.delete("/usuarios/{id}", response_model=UsuarioPublic, status_code=HTTPStatus.OK)
+def deletar_usuario(id: int):
+    if len(usuarios) == 0:
+        raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Não há Betinhas")
+    for i in range(len(usuarios)):
+        if usuarios[i].id == id:
+            m = usuarios[i]
+            usuarios.pop(i)
+            return m
+    raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Betinha não encontrado")
