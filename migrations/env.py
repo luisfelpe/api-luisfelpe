@@ -7,7 +7,7 @@ from alembic import context
 
 from models import  tabela_registro
 from settings import Settings
-
+print("DATABASE_URL", Settings().DATABASE_URL)
 config = context.config
 config.set_main_option('sqlalchemy_url', Settings().DATABASE_URL)
 
