@@ -13,7 +13,7 @@ tabela_registro.metadata.create_all(engine)
 
 with Session(engine) as session:
     Felps = User(
-        username="Felipe", password="4002-8922", email="darkwraith@opmail.com"
+        nome_usuario="Felipe", senha="4002-8922", email="darkwraith@opmail.com"
     )
     session.add(Felps)
     session.commit()
