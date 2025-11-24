@@ -22,4 +22,3 @@ with Session(engine) as session:
 print("Dados do usuario:", Felps)
 print("ID:", Felps.id)
 print("Criado em:", Felps.created_at)
-print("atualizado em:", Felps.updated_at)
