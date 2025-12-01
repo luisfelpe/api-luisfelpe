@@ -59,7 +59,7 @@ def criar_receita(dados: CreateReceita):
             raise HTTPException(
                 status_code=HTTPStatus.CONFLICT, detail="Receita já criada"
             )
-    if 2 > len(nova_receita.nome) > 50:
+    if 2 < len(nova_receita.nome) < 50:
         raise HTTPException(status_code=HTTPStatus.BAD_REQUEST, detail="Fora do Limite")
     receitas.append(nova_receita)
     return nova_receita
@@ -124,17 +124,17 @@ def create_usuario(dados: BaseUsuario, session: Session = Depends(get_session)):
         )
     )
     if db_user:
-        if db_user.nome_usuario.upper == dados.nome_usuario.upper:
+        if db_user.nome_usuario.upper() == dados.nome_usuario.upper():
             raise HTTPException(
                 status_code=HTTPStatus.CONFLICT,
                 detail="já existe um beta com esse nome",
             )
-        elif db_user.email.upper == dados.email.upper:
+        elif db_user.email.upper() == dados.email.upper():
             raise HTTPException(
                 status_code=HTTPStatus.CONFLICT,
                 detail="Já existe um Betinha com esse Email",
             )
-        elif validar_senha(db_user.senha) == False:
+        elif validar_senha(dados.senha) == False:
             raise HTTPException(
                 status_code=HTTPStatus.BAD_REQUEST,
                 detail="a senha deve ter numeros e caracteres",
@@ -159,9 +159,7 @@ def get_todos_usuarios(
     return users
 
 
-@app.get(
-    "/usuarios/{nome_usuarios}", response_model=UsuarioPublic, status_code=HTTPStatus.OK
-)
+@app.get("/usuarios/{nome_usuarios}", response_model=UsuarioPublic, status_code=HTTPStatus.OK)
 def get_usuarios_por_nome(nome_usuario: str, session: Session = Depends(get_session)):
     db_user = session.scalar(select(User).where((User.nome_usuario == nome_usuario)))
     if db_user:
@@ -173,7 +171,7 @@ def get_usuarios_por_nome(nome_usuario: str, session: Session = Depends(get_sess
 
 @app.get("/usuarios/id/{id}", response_model=UsuarioPublic, status_code=HTTPStatus.OK)
 def get_usuario_por_id(id: int, session: Session = Depends(get_session)):
-    db_user = Session.scalar(select(User).where(User.id == id))
+    db_user = session.scalar(select(User).where(User.id == id))
     if db_user:
         return db_user
     raise HTTPException(
