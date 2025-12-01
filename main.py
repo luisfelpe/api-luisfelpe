@@ -134,19 +134,20 @@ def create_usuario(dados: BaseUsuario, session: Session = Depends(get_session)):
                 status_code=HTTPStatus.CONFLICT,
                 detail="Já existe um Betinha com esse Email",
             )
+        elif validar_senha(db_user.senha) == False:
+            raise HTTPException(
+                status_code=HTTPStatus.BAD_REQUEST,
+                detail="a senha deve ter numeros e caracteres",
+            )
     db_user = User(
         nome_usuario=dados.nome_usuario, senha=dados.senha, email=dados.email
     )
+
     session.add(db_user)
     session.commit()
     session.refresh(db_user)
 
     return db_user
-    """if validar_senha(novo_usuario.senha) == False:
-        raise HTTPException(
-            status_code=HTTPStatus.BAD_REQUEST,
-            detail="a senha deve ter numeros e caracteres",
-        )"""
 
 
 @app.get("/usuarios", status_code=HTTPStatus.OK, response_model=List[UsuarioPublic])
@@ -157,35 +158,40 @@ def get_todos_usuarios(
 
     return users
 
-@app.get("/usuarios/{nome_usuarios}", response_model=UsuarioPublic, status_code=HTTPStatus.OK)
+
+@app.get(
+    "/usuarios/{nome_usuarios}", response_model=UsuarioPublic, status_code=HTTPStatus.OK
+)
 def get_usuarios_por_nome(nome_usuario: str, session: Session = Depends(get_session)):
-    db_user = session.scalar(
-        select(User).where((User.nome_usuario == nome_usuario))
-    )
+    db_user = session.scalar(select(User).where((User.nome_usuario == nome_usuario)))
     if db_user:
         return db_user
-    raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Betinha não encontrado")
-    
-    
+    raise HTTPException(
+        status_code=HTTPStatus.NOT_FOUND, detail="Betinha não encontrado"
+    )
 
 
 @app.get("/usuarios/id/{id}", response_model=UsuarioPublic, status_code=HTTPStatus.OK)
 def get_usuario_por_id(id: int, session: Session = Depends(get_session)):
-    db_user = Session.scalar(
-        select(User).where(User.id == id)
-    )
+    db_user = Session.scalar(select(User).where(User.id == id))
     if db_user:
         return db_user
-    raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Betinha não encontrado")
-    
+    raise HTTPException(
+        status_code=HTTPStatus.NOT_FOUND, detail="Betinha não encontrado"
+    )
+
 
 @app.put("/usuarios/{id}", response_model=UsuarioPublic, status_code=HTTPStatus.OK)
-def uptade_usuario(id: int, dados: BaseUsuario, session: Session = Depends(get_session)):
-    
+def uptade_usuario(
+    id: int, dados: BaseUsuario, session: Session = Depends(get_session)
+):
+
     db_user = session.scalar(select(User).where(User.id == id))
     if not db_user:
-        raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Betinha não encontrado")
-    try:   
+        raise HTTPException(
+            status_code=HTTPStatus.NOT_FOUND, detail="Betinha não encontrado"
+        )
+    try:
         db_user.nome_usuario = dados.nome_usuario
         db_user.senha = dados.senha
         db_user.email = dados.email
@@ -195,31 +201,8 @@ def uptade_usuario(id: int, dados: BaseUsuario, session: Session = Depends(get_s
         return db_user
     except IntegrityError:
         raise HTTPException(
-            status_code=HTTPStatus.CONFLICT,
-            detail="Nome de usuario ou Email já existe"
+            status_code=HTTPStatus.CONFLICT, detail="Nome de usuario ou Email já existe"
         )
-    '''for j in range(len(usuarios)):
-                if (
-                    usuarios[j].nome_usuario.upper()
-                    == usuario_atualizado.nome_usuario.upper()
-                ):
-                    raise HTTPException(
-                        status_code=HTTPStatus.CONFLICT,
-                        detail="Já existe um Betinha com esse nome",
-                    )
-            if usuario_atualizado.nome_usuario == "":
-                raise HTTPException(
-                    status_code=HTTPStatus.BAD_REQUEST, detail="insira um nome"
-                )
-            if validar_senha(usuario_atualizado.senha) == False:
-                raise HTTPException(
-                    status_code=HTTPStatus.BAD_REQUEST,
-                    detail="a senha deve ter numeros e caracteres",
-                )
-    '''
-            
-            
-    
 
 
 @app.delete("/usuarios/{id}", response_model=UsuarioPublic, status_code=HTTPStatus.OK)
@@ -227,19 +210,11 @@ def deletar_usuario(id: int, session: Session = Depends(get_session)):
     db_user = session.scalar(select(User).where(User.id == id))
 
     if not db_user:
-        raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Betinha não encontrado")
-    
+        raise HTTPException(
+            status_code=HTTPStatus.NOT_FOUND, detail="Betinha não encontrado"
+        )
+
     session.delete(db_user)
     session.commit()
 
     return db_user
-    '''if len(usuarios) == 0:
-        raise HTTPException(status_code=HTTPStatus.NOT_FOUND, detail="Não há Betinhas")
-    for i in range(len(usuarios)):
-        if usuarios[i].id == id:
-            m = usuarios[i]
-            usuarios.pop(i)
-            return m
-    raise HTTPException(
-        status_code=HTTPStatus.NOT_FOUND, detail="Betinha não encontrado"
-    )'''
