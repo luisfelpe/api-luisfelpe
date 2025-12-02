@@ -123,6 +123,7 @@ def create_usuario(dados: BaseUsuario, session: Session = Depends(get_session)):
             (User.nome_usuario == dados.nome_usuario) | (User.email == dados.email)
         )
     )
+    
     if db_user:
         if db_user.nome_usuario.upper() == dados.nome_usuario.upper():
             raise HTTPException(
@@ -134,11 +135,11 @@ def create_usuario(dados: BaseUsuario, session: Session = Depends(get_session)):
                 status_code=HTTPStatus.CONFLICT,
                 detail="Já existe um Betinha com esse Email",
             )
-        elif validar_senha(dados.senha) == False:
-            raise HTTPException(
-                status_code=HTTPStatus.BAD_REQUEST,
-                detail="a senha deve ter numeros e caracteres",
-            )
+    if validar_senha(dados.senha) == False:
+        raise HTTPException(
+            status_code=HTTPStatus.BAD_REQUEST,
+            detail="a senha deve ter numeros e caracteres",
+        )    
     db_user = User(
         nome_usuario=dados.nome_usuario, senha=dados.senha, email=dados.email
     )
@@ -188,6 +189,11 @@ def uptade_usuario(
     if not db_user:
         raise HTTPException(
             status_code=HTTPStatus.NOT_FOUND, detail="Betinha não encontrado"
+        )
+    if validar_senha(dados.senha) == False:
+        raise HTTPException(
+            status_code=HTTPStatus.BAD_REQUEST,
+            detail="a senha deve ter numeros e caracteres",
         )
     try:
         db_user.nome_usuario = dados.nome_usuario
